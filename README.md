@@ -1,9 +1,36 @@
-﻿# [P17](https://github.com/OS-Q/P17)
+# TI MSP430: development platform for [PlatformIO](http://platformio.org)
 
-[![sites](http://182.61.61.133/link/resources/OSQ.png)](http://www.OS-Q.com)
+[![Build Status](https://github.com/platformio/platform-timsp430/workflows/Examples/badge.svg)](https://github.com/platformio/platform-timsp430/actions)
 
-### [简介](https://github.com/OS-Q/P17/wiki)
+MSP430 microcontrollers (MCUs) from Texas Instruments (TI) are 16-bit, RISC-based, mixed-signal processors designed for ultra-low power. These MCUs offer the lowest power consumption and the perfect mix of integrated peripherals for thousands of applications.
 
-[P17](https://github.com/OS-Q/P17) 基于[PlatformIO](https://github.com/platformio/platformio-core) 框架，用于[CH579](http://www.wch.cn/products/CH579.html)开发
+* [Home](http://platformio.org/platforms/timsp430) (home page in PlatformIO Platform Registry)
+* [Documentation](http://docs.platformio.org/page/platforms/timsp430.html) (advanced usage, packages, boards, frameworks, etc.)
 
-### [Q = (OpenSource & OperatingSystem) ](http://www.OS-Q.com)
+# Usage
+
+1. [Install PlatformIO](http://platformio.org)
+2. Create PlatformIO project and configure a platform option in [platformio.ini](http://docs.platformio.org/page/projectconf.html) file:
+
+## Stable version
+
+```ini
+[env:stable]
+platform = timsp430
+board = ...
+...
+```
+
+## Development version
+
+```ini
+[env:development]
+platform = https://github.com/platformio/platform-timsp430.git
+board = ...
+...
+```
+
+# Configuration
+
+Please navigate to [documentation](http://docs.platformio.org/page/platforms/timsp430.html).
+
