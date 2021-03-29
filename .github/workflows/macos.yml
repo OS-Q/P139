@@ -47,16 +47,13 @@ jobs:
 
       - name: Clean
         run: |
-          mkdir P19
-          cp -r boards P19
-          cp -r builder P19
-          cp  link.json P19
+          zip -r P19.zip boards builder link.json
 
       - name: upload
         uses: actions/upload-artifact@v2
         with:
           name: macos-upload
-          path: P19
+          path: P19.zip
 
       - uses: actions/upload-artifact@v2
         with:
