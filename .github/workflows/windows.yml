@@ -52,7 +52,6 @@ jobs:
           mkdir P19
           copy boards P19  –recurse
           copy builder P19  –recurse
-          copy examples P19 –recurse
           copy link.json P19
 
       - name: upload

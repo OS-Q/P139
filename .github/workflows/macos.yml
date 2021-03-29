@@ -50,7 +50,6 @@ jobs:
           mkdir P19
           cp -r boards P19
           cp -r builder P19
-          cp -r examples P19
           cp  link.json P19
 
       - name: upload
