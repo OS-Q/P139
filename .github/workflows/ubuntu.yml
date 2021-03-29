@@ -58,9 +58,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y sshpass
           python -m pip install --upgrade pip
-          zip -r P19.zip boards builder link.json
           pip install -U https://github.com/OS-Q/S03/archive/master.zip
-          qio platform install ./P19.zip
+          qio platform install file://.
 
       - name: Build
         run: |
@@ -69,7 +68,7 @@ jobs:
   release:
     needs:
       - build
-    if: success() && needs.build.result != 'skipped'
+    if: success() && startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
       - name: Create Release # 创建Release，可以在仓库看到一个个版本
@@ -83,6 +82,10 @@ jobs:
           draft: false # 是否是草稿
           prerelease: false # 是否是预发布
 
+      - name: Install
+        run: |
+          zip -r ${{ github.ref }}.zip boards builder link.json
+
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@master
@@ -90,8 +93,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.OSQ }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # 上传地址，通过创建Release获取到的
-          asset_path: P19.zip # 要上传文件
-          asset_name: P19_${{ github.ref }}.zip # 上传后的文件名
+          asset_path: ${{ github.ref }}.zip # 要上传文件
+          asset_name: P19${{ github.ref }}.zip # 上传后的文件名
           asset_content_type: application/x-zip
 
   Deploy:
