@@ -32,9 +32,9 @@ jobs:
       matrix:
         python-version: [3.9]
         examples:
-          - "QIO/examples/arduino-blink"
-          - "QIO/examples/arduino-internal-libs"
-          - "QIO/examples/native-blink"
+          - "examples/arduino-blink"
+          - "examples/arduino-internal-libs"
+          - "examples/native-blink"
 
     steps:
       - uses: actions/checkout@v2
@@ -61,7 +61,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: windows-upload
-          path: QIO/
+          path: .
 
       - uses: actions/upload-artifact@v2
         with:
