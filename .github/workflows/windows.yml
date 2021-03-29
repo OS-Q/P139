@@ -4,13 +4,14 @@ on:
   push:
     branches:
       - master
-      - github_actions
     tags:
-      - '*'
+      - 'v*'
+  workflow_dispatch:
   pull_request:
     branches:
       - master
-      - github_actions
+  schedule:
+    - cron: '0 3 * * *' # run every day at 3AM
 
 jobs:
   build:

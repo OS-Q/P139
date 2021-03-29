@@ -1,29 +1,24 @@
-name: macos
+name: push
 
 on:
   push:
     branches:
       - master
-      - github_actions
-    tags:
-      - '*'
-  pull_request:
-    branches:
-      - master
-      - github_actions
 
 jobs:
   build:
-    runs-on: macos-latest
     if: github.repository == 'OS-Q/P19'
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.7]
+        os: [ubuntu-16.04, windows-latest, macos-latest]
+        python-version: [3.7,3.9]
         examples:
           - "examples/arduino-blink"
           - "examples/arduino-internal-libs"
           - "examples/native-blink"
+      runs-on: ${{ matrix.os }}
+
     steps:
       - uses: actions/checkout@v2
         with:
@@ -46,17 +41,7 @@ jobs:
         run: |
           qio run -d ${{ matrix.examples }}
 
-      - name: Clean
-        run: |
-          zip -r P19.zip boards builder link.json
-
-      - name: upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: macos-upload
-          path: P19.zip
-
       - uses: actions/upload-artifact@v2
         with:
-          name: macos-build-P11
+          name: push-build
           path: ${{ matrix.examples }}/build
