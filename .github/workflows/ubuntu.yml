@@ -53,6 +53,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -U https://github.com/OS-Q/S03/archive/master.zip
           qio platform install file://.
+          sudo apt install -y pscp
 
       - name: Build
         run: |
@@ -62,13 +63,7 @@ jobs:
         if: github.repository == 'OS-Q/P19'
         run: |
           zip -r P19.zip boards builder link.json
-          spawn scp P19.zip ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/www/html/package/
-          set timeout 300
-          for { set i 1 } {$i<50} {incr i} {
-          expect {"*password:" {send "${{ secrets.DEPLOY_PASSWORD }}\r"}
-          "*(yes/no)*" {send "yes\r"}
-          }
-          }
+          pscp P19.zip ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/www/html/package/ -pw ${{ secrets.DEPLOY_PASSWORD }}
       - name: upload
         uses: actions/upload-artifact@v2
         with:
