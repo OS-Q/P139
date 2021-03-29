@@ -50,8 +50,8 @@ jobs:
 
       - name: Install
         run: |
-          apt-get update
-          apt-get install -y pscp
+          sudo apt-get update
+          sduo apt-get install -y pscp
           python -m pip install --upgrade pip
           pip install -U https://github.com/OS-Q/S03/archive/master.zip
           qio platform install file://.
