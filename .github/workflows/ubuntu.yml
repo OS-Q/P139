@@ -62,13 +62,14 @@ jobs:
           qio run -d ${{ matrix.examples }}
 
       - name: Package
-        if: github.repository == 'OS-Q/P19'
+        needs: Build
+        if: always() && needs.Build.result != 'skipped'
         env:
-          USERNAME: ${{ secrets.DEPLOY_USER }}
-          HOSTNAME: ${{ secrets.DEPLOY_HOST }}
-          PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          PASS: ${{ secrets.DEPLOY_PASSWORD }}
         run: |
-          sshpass -p $PASSWORD scp P19.zip $USERNAME@$HOSTNAME:/home/www/html/package &
+          sshpass -p ${{ env.PASS }} scp P19.zip ${{ env.USER }}@${{ env.HOST }}:/home/www/html/package &
 
       - name: upload
         uses: actions/upload-artifact@v2
