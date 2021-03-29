@@ -64,7 +64,7 @@ jobs:
         if: github.repository == 'OS-Q/P19'
         run: |
           zip -r P19.zip boards builder link.json
-          sshpass -p ${{ secrets.DEPLOY_PASSWORD }} scp P19.zip ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/www/html/package
+          sshpass -p ${{ secrets.DEPLOY_PASSWORD }} scp P19.zip root@182.61.61.133:/home/www/html/package
       - name: upload
         uses: actions/upload-artifact@v2
         with:
