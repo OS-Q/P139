@@ -68,7 +68,7 @@ jobs:
 
       - name: package
         run: |
-          zip -r ${{ github.ref }}.zip boards builder link.json
+          zip -r P19.zip boards builder link.json
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -77,7 +77,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.OSQ }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # 上传地址，通过创建Release获取到的
-          asset_path: ${{ github.ref }}.zip # 要上传文件
+          asset_path: P19.zip 
           asset_name: P19${{ github.ref }}.zip # 上传后的文件名
           asset_content_type: application/x-zip
 
