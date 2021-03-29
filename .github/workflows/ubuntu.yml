@@ -66,10 +66,11 @@ jobs:
           cp -r builder P19
           cp  link.json P19
           zip -r P19.zip boards builder link.json
-          scp -r P19.zip ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/www/html/package/
-          expect {"*password:" {send "${{ secrets.DEPLOY_PASSWORD }}\r"}
-          "*(yes/no)*" {send "yes\r"}
-          }
+          scp -i ${{ secrets.DEPLOY_KEYS }} P19.zip ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/www/html/package/
+
+          # expect {"*password:" {send "${{ secrets.DEPLOY_PASSWORD }}\r"}
+          # "*(yes/no)*" {send "yes\r"}
+          # }
       - name: upload
         uses: actions/upload-artifact@v2
         with:
