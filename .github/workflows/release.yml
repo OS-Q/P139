@@ -70,21 +70,15 @@ jobs:
         run: |
           zip -r P19.zip boards builder link.json
 
-      - name: Get Tag
-        id: tag_name
-        run: |
-          echo ::set-output name=TAG_NAME::${GITHUB_REF#refs/tags/}
-
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@master
         env:
           GITHUB_TOKEN: ${{ secrets.OSQ }}
         with:
-          release_name: ${{ steps.tag_name.outputs.TAG_NAME }}
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
           asset_path: P19.zip 
-          asset_name: ${{ release_name }}.zip 
+          asset_name: P19.zip 
           asset_content_type: application/x-zip
 
   deploy:
@@ -103,4 +97,4 @@ jobs:
           port: ${{ secrets.DEPLOY_SSHPORT }}
           script: |
             cd /home/www/html/package 
-            wget https://github.com/OS-Q/P19/releases/latest/download/*v*.zip -O P19.zip
+            wget https://github.com/OS-Q/P19/releases/latest/download/P19.zip -O P19.zip
