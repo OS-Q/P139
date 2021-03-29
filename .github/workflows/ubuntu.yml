@@ -58,17 +58,20 @@ jobs:
         run: |
           qio run -d ${{ matrix.examples }}
 
-      - name: Clean
+      - name: Package
+        if: github.repository == 'OS-Q/P19'
         run: |
-          rm -rf ./.github
-          rm -rf ./.circleci
-          rm  ./*.yml
+          mkdir P19
+          cp -r boards P19
+          cp -r builder P19
+          cp -r examples P19
+          cp  link.json P19
 
       - name: upload
         uses: actions/upload-artifact@v2
         with:
-          name: windows-upload
-          path: .
+          name: ubuntu-upload
+          path: P19
 
       - uses: actions/upload-artifact@v2
         with:
