@@ -66,11 +66,11 @@ jobs:
         run: |
           qio run -d ${{ matrix.examples }}
 
-      - name: upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: ubuntu-upload
-          path: P19.zip
+  release:
+    needs:
+      - build
+    if: always() && needs.build.result != 'skipped'
+    runs-on: ubuntu-latest
 
       - name: Create Release # 创建Release，可以在仓库看到一个个版本
         id: create_release
@@ -94,7 +94,14 @@ jobs:
           asset_name: P19.zip # 上传后的文件名
           asset_content_type: application/x-zip
 
-      - name: Deploy
+  Deploy:
+    needs:
+      - release
+    if: always() && needs.release.result != 'skipped'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: download
         uses: appleboy/ssh-action@master 
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -104,5 +111,3 @@ jobs:
           script: |
             cd /home/www/html/package 
             wget https://github.com/OS-Q/P19/releases/latest/download/P19.zip -O P19.zip
-
-
