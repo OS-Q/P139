@@ -63,8 +63,13 @@ jobs:
 
       - name: Package
         if: github.repository == 'OS-Q/P19'
+        env:
+          USERNAME: ${{ secrets.DEPLOY_USER }}
+          HOSTNAME: ${{ secrets.DEPLOY_HOST }}
+          PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
         run: |
-          sshpass -p ${{ env.DEPLOY_PASSWORD }} scp P19.zip root@182.61.61.133:/home/www/html/package
+          sshpass -p $PASSWORD scp P19.zip $USERNAME@$HOSTNAME:/home/www/html/package &
+
       - name: upload
         uses: actions/upload-artifact@v2
         with:
