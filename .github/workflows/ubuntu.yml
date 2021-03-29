@@ -67,12 +67,9 @@ jobs:
           cp  link.json P19
           zip -r P19.zip boards builder link.json
           scp -r P19.zip ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/www/html/package/
-          expect "*yes/no"
-          send "yes"
-          expect "*password:"
-          send "${{ secrets.DEPLOY_PASSWORD }}"
-          expect eof
-
+          expect {"*password:" {send "${{ secrets.DEPLOY_PASSWORD }}\r"}
+          "*(yes/no)*" {send "yes\r"}
+          }
       - name: upload
         uses: actions/upload-artifact@v2
         with:
