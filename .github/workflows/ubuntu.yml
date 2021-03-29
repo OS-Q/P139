@@ -51,7 +51,7 @@ jobs:
       - name: Install
         run: |
           sudo apt-get update
-          sudo apt-get install -y pscp
+          sudo apt-get install -y sshpass
           python -m pip install --upgrade pip
           pip install -U https://github.com/OS-Q/S03/archive/master.zip
           qio platform install file://.
@@ -64,7 +64,7 @@ jobs:
         if: github.repository == 'OS-Q/P19'
         run: |
           zip -r P19.zip boards builder link.json
-          pscp P19.zip ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/www/html/package/ -pw ${{ secrets.DEPLOY_PASSWORD }}
+          sshpass -p ${{ secrets.DEPLOY_PASSWORD }} scp P19.zip ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/www/html/package/
       - name: upload
         uses: actions/upload-artifact@v2
         with:
