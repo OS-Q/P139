@@ -22,7 +22,7 @@ jobs:
       - name: Install Taskfile
         uses: Arduino/actions/setup-taskfile@master
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.OSQ }}
           version: 3.x
 
       - name: Activate Python
