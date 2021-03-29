@@ -97,8 +97,8 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
           port: ${{ secrets.DEPLOY_SSHPORT }}
-        script: |
-          cd /home/www/html/package 
-          wget https://github.com/OS-Q/P19/releases/latest/download/P19.zip -O P19.zip
+          script: |
+            cd /home/www/html/package 
+            wget https://github.com/OS-Q/P19/releases/latest/download/P19.zip -O P19.zip
 
 
