@@ -15,6 +15,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    if: github.repository == 'OS-Q/P19'
     strategy:
       fail-fast: false
       matrix:
@@ -45,8 +46,14 @@ jobs:
         run: |
           qio run -d ${{ matrix.examples }}
 
+      - name: Clean
+        run: |
+          rm -rf ./.github
+          rm -rf ./.circleci
+          rm  ./*.yml
+
       - name: upload
-      - uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: windows-upload
           path: .
