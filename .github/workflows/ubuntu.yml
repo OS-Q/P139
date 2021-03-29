@@ -27,6 +27,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     if: github.repository == 'OS-Q/P19'
     strategy:
       fail-fast: false
@@ -61,9 +62,13 @@ jobs:
         run: |
           qio run -d ${{ matrix.examples }}
 
-      - name: Package
-        needs: Build
-        if: always() && needs.Build.result != 'skipped'
+      - name: upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: ubuntu-upload
+          path: P19.zip
+
+      - name: sync
         env:
           USER: ${{ secrets.DEPLOY_USER }}
           HOST: ${{ secrets.DEPLOY_HOST }}
@@ -71,8 +76,4 @@ jobs:
         run: |
           sshpass -p ${{ env.PASS }} scp P19.zip ${{ env.USER }}@${{ env.HOST }}:/home/www/html/package &
 
-      - name: upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: ubuntu-upload
-          path: P19.zip
+
