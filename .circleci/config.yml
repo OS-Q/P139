@@ -16,13 +16,13 @@ jobs:
           command: |
             python -m pip install --upgrade pip
             pip install -U https://github.com/platformio/platformio/archive/develop.zip
-            platformio platform install file://./QIO/
+            platformio platform install file://.
       - run:
           name: "Build"
           command: |
-            platformio run -d QIO/examples/arduino-blink
-            platformio run -d QIO/examples/native-blink
-            platformio run -d QIO/examples/arduino-internal-libs
+            platformio run -d  examples/arduino-blink
+            platformio run -d  examples/native-blink
+            platformio run -d  examples/arduino-internal-libs
 
   QIO:
     docker:
@@ -40,13 +40,13 @@ jobs:
           command: |
             python -m pip install --upgrade pip
             pip install -U https://github.com/OS-Q/S03/archive/master.zip
-            qio platform install file://./QIO/
+            qio platform install file://./
       - run:
           name: "Build"
           command: |
-            qio run -d QIO/examples/arduino-blink
-            qio run -d QIO/examples/native-blink
-            qio run -d QIO/examples/arduino-internal-libs
+            qio run -d  examples/arduino-blink
+            qio run -d  examples/native-blink
+            qio run -d  examples/arduino-internal-libs
 
 workflows:
     version: 2

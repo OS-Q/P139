@@ -48,9 +48,9 @@ jobs:
 
       - name: Clean
         run: |
-          rm -rf ./.github
-          rm -rf ./.circleci
-          rm  ./*.yml
+          rd .github
+          rd .circleci
+          del *.yml
 
       - name: upload
         uses: actions/upload-artifact@v2
