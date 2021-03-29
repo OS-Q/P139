@@ -60,11 +60,13 @@ jobs:
           draft: false # 是否是草稿
           prerelease: false # 是否是预发布
 
-      - name: package
+      - name: clone
         uses: actions/checkout@v2
         with:
           submodules: "recursive"
           fetch-depth: 1
+
+      - name: package
         run: |
           zip -r ${{ github.ref }}.zip boards builder link.json
 
