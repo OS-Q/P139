@@ -20,11 +20,11 @@
   "frameworks": {
     "arduino": {
       "package": "framework-energiamsp430",
-      "script": "extend/arduino.py"
+      "script": "builder/frameworks/energia.py"
     },
     "energia": {
       "package": "framework-energiamsp430",
-      "script": "extend/arduino.py"
+      "script": "builder/frameworks/energia.py"
     }
   },
   "packages": {
