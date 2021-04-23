@@ -67,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: qio_${{ matrix.example }}_${{ matrix.os }}
-          path: examples/${{ matrix.example }}/.pio
+          path: examples/${{ matrix.example }}/.pio/build
 
   QIO_fail:
     needs:
@@ -90,6 +90,28 @@ jobs:
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
           message: "QIO build fail"
+
+  QIO_pass:
+    needs:
+      - QIO
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+
+      - name: notification
+        uses: Qful/mqtt-action@master
+        with:
+          protocol: mqtt
+          host: ${{secrets.MQTT_SERVER}}
+          port: 1883
+          username: ${{secrets.MQTT_USERNAME}}
+          password: ${{secrets.MQTT_PASSWORD}}
+          topic: ${{github.repository}}/${{github.workflow}}
+          message: "QIO build success"
 
   PIO:
     strategy:
@@ -132,7 +154,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: pio_${{ matrix.example }}_${{ matrix.os }}
-          path: examples/${{ matrix.example }}/.pio
+          path: examples/${{ matrix.example }}/.pio/build
 
   PIO_fail:
     needs:
@@ -159,7 +181,7 @@ jobs:
   PIO_pass:
     needs:
       - PIO
-    if: failure()
+    if: success()
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -176,26 +198,5 @@ jobs:
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
-          message: "PIO build fail"
+          message: "PIO build success"
 
-  QIO_pass:
-    needs:
-      - QIO
-    if: failure()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-
-      - name: notification
-        uses: Qful/mqtt-action@master
-        with:
-          protocol: mqtt
-          host: ${{secrets.MQTT_SERVER}}
-          port: 1883
-          username: ${{secrets.MQTT_USERNAME}}
-          password: ${{secrets.MQTT_PASSWORD}}
-          topic: ${{github.repository}}/${{github.workflow}}
-          message: "QIO build fail"
