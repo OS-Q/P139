@@ -45,7 +45,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
-          pio platform install https://github.com/OS-Q/P19/releases/latest/download/package.zip
+          pio platform install https://github.com/OS-Q/P119/releases/latest/download/package.zip
 
       - name: Install latest
         if: matrix.package == 'latest'
