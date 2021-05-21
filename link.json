@@ -14,17 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/platformio/platform-timsp430.git"
+    "url": "https://github.com/OS-Q/P139.git"
   },
   "version": "2.3.0",
   "frameworks": {
     "arduino": {
       "package": "A139",
-      "script": "builder/frameworks/energia.py"
-    },
-    "energia": {
-      "package": "A139",
-      "script": "builder/frameworks/energia.py"
+      "script": "extend/frameworks/arduino.py"
     }
   },
   "packages": {
